@@ -3,12 +3,12 @@ type ValidationRuleType = {
     msg: string
 }
 
-type ValidationRulesOutputType = {
+type ValidationRulesType = {
     validationRules: ValidationRuleType[],
     value: string,
 }
 
-function ValidationRulesOutput({validationRules, value}:ValidationRulesOutputType){
+function ValidationRules({validationRules, value}:ValidationRulesType){
     
     let validationMsgs = "";
     validationMsgs += validationRules.map((v:ValidationRuleType)=>{
@@ -19,4 +19,4 @@ function ValidationRulesOutput({validationRules, value}:ValidationRulesOutputTyp
     return <div className="text-danger">{validationMsgs}</div>;
 }
 
-export {ValidationRulesOutput}
+export {ValidationRules}

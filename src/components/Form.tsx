@@ -2,14 +2,10 @@ import { useState } from "react";
 import { FormInput } from "./FormInput";
 
 
-type FormInputType = {
-    idx: string,
-    label: string,
-    value: string,
-    onChange: React.ChangeEventHandler<HTMLInputElement>,
-    validationRules: ValidationRuleType[]
+type ValidationRuleType = {
+    rule : (value:string)=>{},
+    msg: string
 }
-
 
 function Form(){
 
@@ -65,4 +61,4 @@ function Form(){
     );
 }
 
-export default Form;
+export {Form, type ValidationRuleType};

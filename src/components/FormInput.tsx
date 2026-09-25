@@ -1,4 +1,13 @@
-import { ValidationRulesOutput } from "./ValidationRulesOutput";
+import type { ValidationRuleType } from "./Form";
+import { ValidationRules } from "./ValidationRules";
+
+type FormInputType = {
+    idx: string,
+    label: string,
+    value: string,
+    onChange: React.ChangeEventHandler<HTMLInputElement>,
+    validationRules: ValidationRuleType[]
+}
 
 function FormInput({idx, label, value, onChange, validationRules}:FormInputType){
     return(
@@ -7,7 +16,7 @@ function FormInput({idx, label, value, onChange, validationRules}:FormInputType)
             <label className={"form-label m-0 p-2"} htmlFor={idx}>{label}:</label>
             <input className={"form-control"} id={idx} name={idx} value={value} onChange={onChange}/>
         </div>
-        <ValidationRulesOutput validationRules={validationRules} value={value}/>
+        <ValidationRules validationRules={validationRules} value={value}/>
     </>
     )
 }
