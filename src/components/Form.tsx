@@ -1,32 +1,13 @@
 import { useState } from "react";
+import { FormInput } from "./FormInput";
+
 
 type FormInputType = {
     idx: string,
     label: string,
     value: string,
-}
-
-function FormInput({idx, label, value, onChange, validationRules}){
-    return(
-    <>
-        <div className={"d-flex p-2 align-items-center"}>
-            <label className={"form-label m-0 p-2"} htmlFor={idx}>{label}:</label>
-            <input className={"form-control"} id={idx} name={idx} value={value} onChange={onChange}/>
-        </div>
-        <ValidationRulesOutput validationRules={validationRules} value={value}/>
-    </>
-    )
-}
-
-function ValidationRulesOutput({validationRules, value}){
-    
-    let validationMsgs = "";
-    validationMsgs += validationRules.map((v,i,a)=>{
-        if(v.rule(value)){
-            return(" "+v.msg);
-        }
-    });
-    return <div className="text-danger">{validationMsgs}</div>;
+    onChange: React.ChangeEventHandler<HTMLInputElement>,
+    validationRules: ValidationRuleType[]
 }
 
 
@@ -35,26 +16,24 @@ function Form(){
     let [link, setLink] = useState("");
     let [label, setLabel] = useState("");
 
-    const validationRulesDefault = [
+
+
+    let validationRules : ValidationRuleType[] = [
         {
-            rule: (value:string)=>{return(value=="");},
+            rule: (value)=>{return(value=="");},
             msg:  "Pole nie może być puste!",
-            value: true,
         },
         {
-            rule: (value:string)=>{return(value.length<3 || value.length>10);},
+            rule: (value)=>{return(value.length<3 || value.length>10);},
             msg: "Pole musi zawierać od 3 do 10 znaków!",
-            value: true,
         }
     ]
 
-    let [validationRules, setValidationRules] = useState(validationRulesDefault);
 
 
     function formReset(){
         setLink("");
         setLabel("");
-        setValidationRules(validationRulesDefault);
     }
 
 
@@ -63,14 +42,14 @@ function Form(){
             <FormInput 
                 idx={"link"} 
                 label={"Odnośnik"} 
-                onChange={(e:any)=>{setLink(e.target.value)}}
+                onChange={(e:React.ChangeEvent<HTMLInputElement>)=>{setLink(e.target.value)}}
                 value={link}     
                 validationRules={validationRules}
             />
             <FormInput 
                 idx={"label"} 
                 label={"Opis"}
-                onChange={(e:any)=>{setLabel(e.target.value)}}
+                onChange={(e:React.ChangeEvent<HTMLInputElement>)=>{setLabel(e.target.value)}}
                 value={label}
                 validationRules={validationRules}
             />
